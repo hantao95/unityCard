@@ -365,6 +365,7 @@
 "Assets/Arts/Epic Toon FX/Scripts/ETFXPitchRandomizer.cs"
 "Assets/Arts/Epic Toon FX/Scripts/ETFXRotation.cs"
 "Assets/Scripts/UI/UIBase.cs"
+"Assets/Scripts/UI/UIManager.cs"
 -langversion:9.0
 
 /deterministic

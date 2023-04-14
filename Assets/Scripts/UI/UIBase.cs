@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 界面基类
+/// </summary>
 public class UIBase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //关闭界面
+    public virtual void close()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+       
     }
 }
