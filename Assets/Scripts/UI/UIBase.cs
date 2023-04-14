@@ -7,9 +7,30 @@ using UnityEngine;
 /// </summary>
 public class UIBase : MonoBehaviour
 {
-    //关闭界面
-    public virtual void close()
+    //注册事件
+    public UIEventTrigger Register(string name)
     {
-       
+        GameObject obj = transform.Find(name).gameObject;
+        return UIEventTrigger.Get(obj);
     }
+
+    //显示页面
+    public virtual void Show()
+    {
+       gameObject.SetActive(true);
+    }
+    //隐藏界面
+    public virtual void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    //关闭界面（销毁）
+    public virtual void Close()
+    {
+        Debug.Log("销毁");
+        UIManager.Instance.CloseUI(gameObject.name);
+    }
+ 
+
 }
