@@ -28,7 +28,6 @@ public class UIBase : MonoBehaviour
     //关闭界面（销毁）
     public virtual void Close()
     {
-        Debug.Log("销毁");
         UIManager.Instance.CloseUI(gameObject.name);
     }
  

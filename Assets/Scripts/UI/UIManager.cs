@@ -56,12 +56,10 @@ public class UIManager : MonoBehaviour
     //关闭（销毁）
     public void CloseUI(string uiName)
     {
-        Debug.Log("1");
         //判断集合中是否有这个界面
         UIBase ui = Find(uiName);
         if (ui != null)
         {
-            Debug.Log("2");
             uiList.Remove(ui);
             Destroy(ui.gameObject);
         }
@@ -79,8 +77,22 @@ public class UIManager : MonoBehaviour
 
     public UIBase Find(string uiName)
     {
-        Debug.Log("0");
         return uiList.Find((UIBase obj) => { return obj.name == uiName; });
     }
 
+    //创建敌人头部的行动图标
+    public GameObject CreateEnemyHeadIcon()
+    {
+        GameObject obj = Instantiate(Resources.Load("UI/actionIcon"),canvasTf) as GameObject;
+        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        return obj;
+    }
+
+    //创建敌人的血条
+    public GameObject CreateEnemyHpBar()
+    {
+        GameObject obj = Instantiate(Resources.Load("UI/HpItem"), canvasTf) as GameObject;
+        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        return obj;
+    }
 }

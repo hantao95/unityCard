@@ -14,11 +14,10 @@ public class LoginUI : UIBase
 
     private void OnStartGameBtn(GameObject go, PointerEventData eventData)
     {
-        //点击开始游戏按钮
-        Debug.Log("点击开始游戏按钮");
         //关闭开始界面
         Close();
-        
+        //战斗初始化
+        FightManager.Instance.ChangeFightType(FightType.Init);
         
     }
 }
