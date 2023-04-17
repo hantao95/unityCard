@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.UI;
 
 //UI管理器
 public class UIManager : MonoBehaviour
@@ -95,4 +97,29 @@ public class UIManager : MonoBehaviour
         obj.transform.SetAsLastSibling();//设置在父级的最后一位
         return obj;
     }
+
+    //提示界面
+    public void ShowTip(string msg,Color color,System.Action callback=null)
+    {
+        GameObject obj = Instantiate(Resources.Load("UI/Tips"), canvasTf) as GameObject;
+        Text text = obj.transform.Find("bg/Text").GetComponent<Text>() ;
+        text.text = msg ;
+        text.color = color;
+        Tween scale1 = obj.transform.Find("bg").DOScaleY(1,0.4f);
+        Tween scale2 = obj.transform.Find("bg").DOScaleY(0, 0.4f);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(scale1);
+        seq.AppendInterval(0.5f);
+        seq.Append(scale2);
+        seq.AppendCallback(delegate ()
+        {
+            if (callback != null)
+            {
+                callback();
+            }
+        });
+        MonoBehaviour.Destroy(obj,2);
+    }
+
 }
