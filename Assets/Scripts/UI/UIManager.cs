@@ -82,6 +82,17 @@ public class UIManager : MonoBehaviour
         return uiList.Find((UIBase obj) => { return obj.name == uiName; });
     }
 
+    //获得某个界面的脚本
+    public T GetUI<T>(string uiName) where T:UIBase
+    {
+        UIBase ui = Find(uiName);
+        if(ui != null)
+        {
+            return ui.GetComponent<T>();
+        }
+        return null;
+    }
+
     //创建敌人头部的行动图标
     public GameObject CreateEnemyHeadIcon()
     {

@@ -31,4 +31,18 @@ public class FightCardManager
         Debug.Log(cardList.Count);
 
     }
+
+    //ÊÇ·ñÓÐ¿¨
+    public bool HasCard()
+    {
+        return cardList.Count > 0;
+    }
+
+    //³é¿¨
+    public string DrawCard()
+    {
+        string id = cardList[cardList.Count - 1];
+        cardList.RemoveAt(cardList.Count - 1);
+        return id;
+    }
 }

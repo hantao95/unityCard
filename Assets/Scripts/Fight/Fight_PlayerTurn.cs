@@ -12,6 +12,8 @@ public class Fight_PlayerTurn : FightUnit
         {
             //≥È≈∆
             Debug.Log("≥È≈∆");
+            UIManager.Instance.GetUI<FightUI>("FightUI").CreateCardItem(4);//≥È4’≈≈∆
+            UIManager.Instance.GetUI<FightUI>("FightUI").UpdateCardPos();
         });
     }
     public override void OnUpdate()
