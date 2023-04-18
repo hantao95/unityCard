@@ -10,6 +10,7 @@ public class GameConfigManager
     private GameConfigData cardData;//卡牌表
     private GameConfigData enemyData;//敌人表
     private GameConfigData levelData;//关卡表
+    private GameConfigData cardTypeData;//卡牌类型表
 
     public void init()
     {
@@ -22,6 +23,9 @@ public class GameConfigManager
         //读取关卡表
         string levelStr = Resources.Load<TextAsset>("Data/level").text;
         levelData = new GameConfigData(levelStr);
+        //读取卡牌类型表
+        string cardTypeStr = Resources.Load<TextAsset>("Data/cardType").text;
+        cardTypeData = new GameConfigData(cardTypeStr);
     }
     //获取卡牌表
     public List<Dictionary<string,string>> GetCardLines()
@@ -38,6 +42,11 @@ public class GameConfigManager
     {
         return levelData.GetLines();
     }
+    //获取卡牌类型表
+    public List<Dictionary<string, string>> GetCardTypeLines()
+    {
+        return cardTypeData.GetLines();
+    }
 
     public Dictionary<string, string> GetCardById(string id)
     {
@@ -50,5 +59,9 @@ public class GameConfigManager
     public Dictionary<string, string> GetLevelById(string id)
     {
         return levelData.GetOneById(id);
+    }
+    public Dictionary<string, string> GetCardTypeById(string id)
+    {
+        return cardTypeData.GetOneById(id);
     }
 }
