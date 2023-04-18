@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
     public GameObject CreateEnemyHeadIcon()
     {
         GameObject obj = Instantiate(Resources.Load("UI/actionIcon"),canvasTf) as GameObject;
-        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        obj.transform.SetAsFirstSibling();//设置在父级的第一位
         return obj;
     }
 
@@ -105,7 +105,7 @@ public class UIManager : MonoBehaviour
     public GameObject CreateEnemyHpBar()
     {
         GameObject obj = Instantiate(Resources.Load("UI/HpItem"), canvasTf) as GameObject;
-        obj.transform.SetAsLastSibling();//设置在父级的最后一位
+        obj.transform.SetAsFirstSibling();//设置在父级的第一位
         return obj;
     }
 

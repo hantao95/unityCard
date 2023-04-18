@@ -35,7 +35,7 @@ public class AudioManager : MonoBehaviour
     public void PlayEffect(string name)
     {
         //º”‘ÿ“Ù¿÷
-        AudioClip clip = Resources.Load<AudioClip>("Sounds/Effect/" + name);
+        AudioClip clip = Resources.Load<AudioClip>("Sounds/" + name);
         AudioSource.PlayClipAtPoint(clip, transform.position);//≤•∑≈
     }
 }
