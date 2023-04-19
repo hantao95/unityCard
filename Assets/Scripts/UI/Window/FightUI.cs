@@ -78,9 +78,10 @@ public class FightUI : UIBase
         {
             GameObject obj = Instantiate(Resources.Load("UI/CardItem"),transform) as GameObject;
             obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1000, -700);
-            var item = obj.AddComponent<CardItem>();
+            //var item = obj.AddComponent<CardItem>();
             string cardId = FightCardManager.instance.DrawCard();
             Dictionary<string,string> data = GameConfigManager.Instance.GetCardById(cardId);
+            CardItem item = obj.AddComponent(System.Type.GetType(data["Script"])) as CardItem;
             item.Init(data);
             cardItemList.Add(item);
         }
@@ -95,5 +96,24 @@ public class FightUI : UIBase
             cardItemList[i].GetComponent<RectTransform>().DOAnchorPos( startPos,0.5f);
             startPos.x = startPos.x+offset;
         }
+    }
+
+    //删除卡牌物体
+    public void RemoveCard(CardItem item)
+    {
+        AudioManager.Instance.PlayEffect("Cards/cardShove");//移除音效
+        item.enabled = false;//禁用卡牌
+        //添加到弃牌堆
+        FightCardManager.instance.usedCardList.Add(item.data["Id"]);
+        cardItemList.Remove(item);
+        //更新使用后的卡牌数量
+        cardCountText.text = FightCardManager.instance.cardList.Count.ToString();
+        usedCardCountText.text = FightCardManager.instance.usedCardList.Count.ToString();
+        UpdateCardPos();//刷新卡牌位置
+        //卡牌移动到弃牌堆效果
+        item.GetComponent<RectTransform>().DOAnchorPos(new Vector2(1000, -700), 0.25f);
+        item.transform.DOScale(0, 0.25f);
+        Destroy(item.gameObject,1);
+
     }
 }
