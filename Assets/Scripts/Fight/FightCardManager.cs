@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FightCardManager 
 {
-   public static FightCardManager instance = new FightCardManager();
+   public static FightCardManager Instance = new FightCardManager();
 
     public List<string> cardList;//¿¨¶Ñ
 

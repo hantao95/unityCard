@@ -59,27 +59,27 @@ public class FightUI : UIBase
     //更新卡堆数量
     public void UpdateCardCount()
     {
-        cardCountText.text = FightCardManager.instance.cardList.Count.ToString();
+        cardCountText.text = FightCardManager.Instance.cardList.Count.ToString();
     }
     //更新弃牌堆数量
     public void UpdateUsedCardCount()
     {
-        usedCardCountText.text = FightCardManager.instance.usedCardList.Count.ToString();
+        usedCardCountText.text = FightCardManager.Instance.usedCardList.Count.ToString();
     }
 
     //创建卡牌实体
     public void CreateCardItem(int count)
     {
-        if(count > FightCardManager.instance.cardList.Count)
+        if(count > FightCardManager.Instance.cardList.Count)
         {
-            count = FightCardManager.instance.cardList.Count;
+            count = FightCardManager.Instance.cardList.Count;
         }
         for(int i = 0; i < count; i++)
         {
             GameObject obj = Instantiate(Resources.Load("UI/CardItem"),transform) as GameObject;
-            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1000, -700);
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1000, -1000);
             //var item = obj.AddComponent<CardItem>();
-            string cardId = FightCardManager.instance.DrawCard();
+            string cardId = FightCardManager.Instance.DrawCard();
             Dictionary<string,string> data = GameConfigManager.Instance.GetCardById(cardId);
             CardItem item = obj.AddComponent(System.Type.GetType(data["Script"])) as CardItem;
             item.Init(data);
@@ -90,7 +90,7 @@ public class FightUI : UIBase
     public void UpdateCardPos()
     {
         float offset = 800.0f / cardItemList.Count;
-        Vector2 startPos = new Vector2(-cardItemList.Count/2.0f * offset + offset * 0.5f,-700 );
+        Vector2 startPos = new Vector2(-cardItemList.Count/2.0f * offset + offset * 0.5f,-1000 );
         for(int i = 0;i < cardItemList.Count;i++)
         {
             cardItemList[i].GetComponent<RectTransform>().DOAnchorPos( startPos,0.5f);
@@ -104,14 +104,14 @@ public class FightUI : UIBase
         AudioManager.Instance.PlayEffect("Cards/cardShove");//移除音效
         item.enabled = false;//禁用卡牌
         //添加到弃牌堆
-        FightCardManager.instance.usedCardList.Add(item.data["Id"]);
+        FightCardManager.Instance.usedCardList.Add(item.data["Id"]);
         cardItemList.Remove(item);
         //更新使用后的卡牌数量
-        cardCountText.text = FightCardManager.instance.cardList.Count.ToString();
-        usedCardCountText.text = FightCardManager.instance.usedCardList.Count.ToString();
+        cardCountText.text = FightCardManager.Instance.cardList.Count.ToString();
+        usedCardCountText.text = FightCardManager.Instance.usedCardList.Count.ToString();
         UpdateCardPos();//刷新卡牌位置
         //卡牌移动到弃牌堆效果
-        item.GetComponent<RectTransform>().DOAnchorPos(new Vector2(1000, -700), 0.25f);
+        item.GetComponent<RectTransform>().DOAnchorPos(new Vector2(1000, -1000), 0.25f);
         item.transform.DOScale(0, 0.25f);
         Destroy(item.gameObject,1);
 

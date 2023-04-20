@@ -49,4 +49,10 @@ public class EnemyManager
         }
     }
 
+    public void RemoveEnemy(Enemy enemy)
+    {
+        enemyList.Remove(enemy);
+        //后续做是否击杀所有怪判断
+    }
+
 }

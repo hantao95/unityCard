@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Data\GameConfigData.cs" />
     <Compile Include="Assets\Arts\Epic Toon FX\Demo\ParticleEffectsShowcase\Scripts\ParticleEffectsLibrary.cs" />
     <Compile Include="Assets\Scripts\Fight\Fight_Win.cs" />
+    <Compile Include="Assets\Scripts\Card\AddCard.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
     <Compile Include="Assets\Arts\Epic Toon FX\Demo\Scripts\ETFXMouseOrbit.cs" />
     <Compile Include="Assets\Scripts\Fight\Fight_Loss.cs" />
@@ -92,9 +93,8 @@
     <Compile Include="Assets\Scripts\Manager\RoleManager.cs" />
     <Compile Include="Assets\Scripts\Data\GameConfigManager.cs" />
     <Compile Include="Assets\Arts\Epic Toon FX\Demo\Scripts\ETFXProjectileScript.cs" />
-    <Compile Include="Assets\Scripts\Card\AttackCardItem.cs" />
     <Compile Include="Assets\Scripts\Card\DefendCard.cs" />
-    <Compile Include="Assets\Scripts\Card\AddCard.cs" />
+    <Compile Include="Assets\Scripts\Card\AttackCardItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Arts\Epic Toon FX\Prefabs\Environment\Environment FX.txt" />

@@ -19,7 +19,7 @@ public class FightInit : FightUnit
         EnemyManager.Instance.LoadRes("10003");//读取关卡3的敌人
 
         //初始化战斗卡牌
-        FightCardManager.instance.Init();
+        FightCardManager.Instance.Init();
 
         //显示战斗界面
         UIManager.Instance.ShowUI<FightUI>("FightUI");

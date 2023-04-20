@@ -39,6 +39,10 @@ public class Enemy : MonoBehaviour
     public int Attack;//攻击力
     public int Defense;//防御力
 
+    //组件相关
+    SkinnedMeshRenderer _meshRenderer;
+    public Animator ani;
+
     public void Init(Dictionary<string, string> data)
     {
         this.data = data;
@@ -46,6 +50,9 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _meshRenderer = transform.GetComponentInChildren<SkinnedMeshRenderer>();
+        ani = transform.GetComponent<Animator>();
+
         actionType = EnemyActionType.None;
         hpItemObj = UIManager.Instance.CreateEnemyHpBar();
         actionObj = UIManager.Instance.CreateEnemyHeadIcon();
@@ -71,6 +78,8 @@ public class Enemy : MonoBehaviour
 
         UpdateHp();
         UpdateDefense();
+
+
     }
 
     //随机一个行动
@@ -104,5 +113,56 @@ public class Enemy : MonoBehaviour
     {
         defendTxt.text = Defense.ToString();
     }
-    
+
+    //被卡牌选中，显示红边
+    public void OnSelect()
+    {
+        _meshRenderer.material.SetColor("_OtlColor", Color.red);
+    }
+
+    //未选中
+    public void OnUnSelect()
+    {
+        _meshRenderer.material.SetColor("_OtlColor", Color.black);
+    }
+
+    //受伤
+    public void Hit(int val)
+    {
+        //先扣护盾
+        if (Defense>=val)
+        {
+            //扣护盾
+            Defense -= val;
+            //播放受伤
+            ani.Play("hit", 0, 0);
+        }
+        else
+        {
+            val = val - Defense;
+            Defense = 0;
+            CurHp -= val;
+            if(CurHp < 0)
+            {
+                CurHp = 0;
+                //播放死亡
+                ani.Play("die");
+                //从敌人列表移除
+                EnemyManager.Instance.RemoveEnemy(this);
+
+                Destroy(gameObject, 1);
+                Destroy(actionObj);
+                Destroy(hpItemObj);
+
+            }
+            else
+            {
+                //受伤
+                ani.Play("hit", 0, 0);
+            }
+        }
+        //刷新血量等UI
+        UpdateDefense();
+        UpdateHp();
+    }
 }
