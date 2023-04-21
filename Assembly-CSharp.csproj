@@ -95,6 +95,7 @@
     <Compile Include="Assets\Arts\Epic Toon FX\Demo\Scripts\ETFXProjectileScript.cs" />
     <Compile Include="Assets\Scripts\Card\DefendCard.cs" />
     <Compile Include="Assets\Scripts\Card\AttackCardItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\LineUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Arts\Epic Toon FX\Prefabs\Environment\Environment FX.txt" />

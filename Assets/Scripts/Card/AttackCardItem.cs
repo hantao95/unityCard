@@ -27,6 +27,10 @@ public class AttackCardItem : CardItem, IPointerDownHandler
     {
         //播放声音
         AudioManager.Instance.PlayEffect("Cards/draw");
+        //显示曲线界面
+        UIManager.Instance.ShowUI<LineUI>("LineUI");
+        //设置曲线起始点
+        UIManager.Instance.GetUI<LineUI>("LineUI").SetStartPos(transform.GetComponent<RectTransform>().anchoredPosition);
         //隐藏鼠标
         Cursor.visible = false;
         //关闭所有协同程序
@@ -51,6 +55,8 @@ public class AttackCardItem : CardItem, IPointerDownHandler
                 pData.pressEventCamera,
                 out pos))
             {
+                //设置箭头位置
+                UIManager.Instance.GetUI<LineUI>("LineUI").SetEndPos(pos);
                 //进行射线检测是否碰倒怪物
                 checkRayToEnemy();
             }
@@ -58,6 +64,8 @@ public class AttackCardItem : CardItem, IPointerDownHandler
         }
         //跳出循环后 显示鼠标
         Cursor.visible = true;
+        //关闭曲线界面
+        UIManager.Instance.CloseUI("LineUI");
     }
 
     Enemy hitEnemy;//射线检测到的敌人脚本
@@ -78,6 +86,9 @@ public class AttackCardItem : CardItem, IPointerDownHandler
                 StopAllCoroutines();
                 //鼠标显示
                 Cursor.visible = true;
+
+                //关闭曲线界面
+                UIManager.Instance.CloseUI("LineUI");
                 if (TryUse())
                 {
                     //播放特效
