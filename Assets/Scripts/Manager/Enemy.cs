@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -165,4 +167,48 @@ public class Enemy : MonoBehaviour
         UpdateDefense();
         UpdateHp();
     }
+
+    //隐藏怪物头上的行动标志
+    public void HideAction()
+    {
+        attackTransform.gameObject.SetActive(false);
+        defendTransform.gameObject.SetActive(false);
+    }
+
+    //执行敌人行动
+    public IEnumerator DoAction()
+    {
+        HideAction();
+        //播放动画（可以配置到表中，这里默认放攻击动画）
+        ani.Play("attack");
+        //等待一段时间后执行对应的行为（也可以配到表中）
+        yield return new WaitForSeconds(0.5f);
+
+        switch (actionType)
+        {
+            case EnemyActionType.None: 
+                break;
+            case EnemyActionType.Defend:
+                Defense += 1;
+                UpdateDefense();
+                //可以播放对应的特效
+                break;
+            case EnemyActionType.Attack:
+                //玩家扣血
+                FightManager.Instance.GetPlayerHit(Attack);
+                //摄像机抖一抖
+                Camera.main.DOShakePosition(0.1f, 0.2f, 5, 45);
+
+                break;
+        }
+
+        //等待动画播放完
+        yield return new WaitForSeconds(1);
+        //播放待机
+        ani.Play("idle");
+    }
+
+
+
+
 }

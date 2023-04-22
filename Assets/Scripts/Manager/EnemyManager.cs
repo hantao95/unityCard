@@ -53,6 +53,28 @@ public class EnemyManager
     {
         enemyList.Remove(enemy);
         //后续做是否击杀所有怪判断
+        if (enemyList.Count==0)
+        {
+            FightManager.Instance.ChangeFightType(FightType.Win);
+        }
+    }
+
+    //执行活着的怪物的行为
+    public IEnumerator DoAllEnemyAction()
+    {
+        for(int i = 0;i < enemyList.Count; i++)
+        {
+            yield return FightManager.Instance.StartCoroutine(enemyList[i].DoAction());
+        }
+        //行动后 更新所有敌人行为
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            enemyList[i].RandomAction();
+        }
+
+        //切换到玩家回合
+        FightManager.Instance.ChangeFightType(FightType.Player);
+
     }
 
 }

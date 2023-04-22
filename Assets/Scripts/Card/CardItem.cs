@@ -90,7 +90,7 @@ public class CardItem : MonoBehaviour,IPointerEnterHandler, IPointerExitHandler,
         if(cost > FightManager.Instance.CurPowerCount)
         {
             //费用不足
-            AudioManager.Instance.PlayEffect("Effect/loss");//使用失败音效
+            AudioManager.Instance.PlayEffect("Effect/lose");//使用失败音效
             //提示
             UIManager.Instance.ShowTip("费用不足",Color.red);
             return false;

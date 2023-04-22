@@ -35,8 +35,8 @@ public class FightManager : MonoBehaviour
     {
         MaxHp = 10;
         CurHp = 10;
-        MaxPowerCount = 10;
-        CurPowerCount = 10;
+        MaxPowerCount = 3;
+        CurPowerCount = 3;
         DefenseCount = 10;
     }
     
@@ -74,9 +74,37 @@ public class FightManager : MonoBehaviour
         fightUnit.Init();
     }
 
+    //玩家受伤逻辑
+    public void GetPlayerHit(int hit)
+    {
+        //扣护盾
+        if (DefenseCount>=hit)
+        {
+            DefenseCount -= hit;
+        }
+        else
+        {
+            hit = hit - DefenseCount;
+            DefenseCount = 0;
+            CurHp -= hit;
+            if(CurHp <= 0)
+            {
+                CurHp = 0;
+                //游戏失败
+                ChangeFightType(FightType.Loss);
+            }
+        }
+        //更新界面
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdateHp();
+        UIManager.Instance.GetUI<FightUI>("FightUI").UpdateDefense();
+    }
+
 
     private void Update()
     {
-        
+        if (fightUnit != null)
+        {
+            fightUnit.OnUpdate();
+        }
     }
 }
